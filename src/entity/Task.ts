@@ -41,5 +41,5 @@ export class Task {
   priority: Priority;
 
   @ManyToOne(() => User, (user) => user.tasks)
-  userId: User;
+  user: User;
 }

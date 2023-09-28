@@ -19,7 +19,8 @@
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.11.3",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "0.3.17"
+    "typeorm": "0.3.17",
+    "zod": "^3.22.2"
   },
   "scripts": {
     "dev": "npx nodemon --exec npm run start",

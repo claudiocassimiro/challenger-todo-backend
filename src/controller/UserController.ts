@@ -17,11 +17,7 @@ class UserController {
 
     await userRepository.save(user);
 
-    return res.json(user);
-  }
-
-  async allTasks(req: Request, res: Response, next: NextFunction) {
-    return res.send("Okay").end();
+    return res.status(200).json(user);
   }
 }
 
