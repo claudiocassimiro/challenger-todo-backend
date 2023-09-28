@@ -27,6 +27,7 @@ export class CreateTaskTable1695929980795 implements MigrationInterface {
           {
             name: "description",
             type: "varchar",
+            default: null,
           },
           {
             name: "creation_date",
@@ -35,6 +36,7 @@ export class CreateTaskTable1695929980795 implements MigrationInterface {
           {
             name: "completion_date",
             type: "timestamp with time zone",
+            default: null,
           },
           {
             name: "priority",
@@ -43,7 +45,7 @@ export class CreateTaskTable1695929980795 implements MigrationInterface {
             enum: ["alta", "média", "baixa"],
           },
           {
-            name: "userId",
+            name: "user",
             type: "uuid",
           },
         ],
@@ -53,7 +55,7 @@ export class CreateTaskTable1695929980795 implements MigrationInterface {
     await queryRunner.createForeignKey(
       "tasks",
       new TableForeignKey({
-        columnNames: ["userId"],
+        columnNames: ["user"],
         referencedTableName: "users",
         referencedColumnNames: ["id"],
       })
