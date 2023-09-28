@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { User } from "./entity/User";
+import { Task } from "./entity/Task";
 import "dotenv/config";
 
 export const AppDataSource = new DataSource({
@@ -12,7 +13,7 @@ export const AppDataSource = new DataSource({
   database: "todo_db",
   synchronize: true,
   logging: false,
-  entities: [User],
+  entities: [User, Task],
   migrations: ["./src/migration/*.ts"],
   subscribers: [],
 });
