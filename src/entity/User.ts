@@ -1,5 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BeforeInsert,
+  OneToMany,
+} from "typeorm";
 import * as bcrypt from "bcryptjs";
+import { Task } from "./Task";
 
 @Entity("users")
 export class User {
@@ -11,6 +18,9 @@ export class User {
 
   @Column()
   password: string;
+
+  @OneToMany(() => Task, (task) => task.userId)
+  tasks: Task[];
 
   @BeforeInsert()
   hashPassword() {
