@@ -1,23 +1,14 @@
-import { UserController } from "./controller/UserController"
+import { Router } from "express";
 
-export const Routes = [{
-    method: "get",
-    route: "/users",
-    controller: UserController,
-    action: "all"
-}, {
-    method: "get",
-    route: "/users/:id",
-    controller: UserController,
-    action: "one"
-}, {
-    method: "post",
-    route: "/users",
-    controller: UserController,
-    action: "save"
-}, {
-    method: "delete",
-    route: "/users/:id",
-    controller: UserController,
-    action: "remove"
-}]
+import authMiddleware from "./middlewares/authMiddleware";
+
+import UserController from "./controller/UserController";
+import AuthController from "./controller/AuthController";
+
+const router = Router();
+
+router.post("/users", UserController.save);
+router.post("/login", AuthController.authenticate);
+router.get("/tasks", authMiddleware, UserController.allTasks);
+
+export default router;
