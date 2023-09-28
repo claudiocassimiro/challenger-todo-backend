@@ -71,6 +71,26 @@ class TaskController {
       return res.json({ error });
     }
   }
+
+  async delete(req: Request, res: Response, next: NextFunction) {
+    const taskRepository = AppDataSource.getRepository(Task);
+    const taskId = req.params.id;
+
+    if (!taskId) {
+      return res.status(400).json({
+        message:
+          "Você deve enviar o id da task a ser deletada no parâmetro da url do endpoint",
+      });
+    }
+
+    try {
+      await taskRepository.delete({ id: taskId });
+
+      res.sendStatus(204);
+    } catch (error) {
+      return res.json({ error });
+    }
+  }
 }
 
 export default new TaskController();
