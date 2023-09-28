@@ -19,7 +19,7 @@ export class User {
   @Column()
   password: string;
 
-  @OneToMany(() => Task, (task) => task.userId)
+  @OneToMany(() => Task, (task) => task.user)
   tasks: Task[];
 
   @BeforeInsert()
