@@ -2,22 +2,23 @@ import { AppDataSource } from "../data-source";
 import { NextFunction, Request, Response } from "express";
 import { User } from "../entity/User";
 
-export class UserController {
-  private userRepository = AppDataSource.getRepository(User);
-
+class UserController {
   async save(req: Request, res: Response, next: NextFunction) {
+    const userRepository = AppDataSource.getRepository(User);
     const { email, password } = req.body;
 
-    const userExists = await this.userRepository.findOne({ where: { email } });
+    const userExists = await userRepository.findOne({ where: { email } });
 
     if (userExists) {
       return res.sendStatus(409);
     }
 
-    const user = this.userRepository.create({ email, password });
+    const user = userRepository.create({ email, password });
 
-    await this.userRepository.save(user);
+    await userRepository.save(user);
 
     return res.json(user);
   }
 }
+
+export default new UserController();
