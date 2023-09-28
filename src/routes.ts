@@ -13,5 +13,6 @@ router.post("/login", AuthController.authenticate);
 router.post("/tasks", authMiddleware, TaskController.save);
 router.get("/tasks", authMiddleware, TaskController.getAll);
 router.delete("/tasks/:id", authMiddleware, TaskController.delete);
+router.put("/tasks", authMiddleware, TaskController.update);
 
 export default router;
