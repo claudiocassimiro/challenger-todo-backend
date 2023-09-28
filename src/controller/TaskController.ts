@@ -52,6 +52,25 @@ class TaskController {
       return res.json({ error });
     }
   }
+
+  async getAll(req: Request, res: Response, next: NextFunction) {
+    const taskRepository = AppDataSource.getRepository(Task);
+    const { userId } = req;
+
+    if (!userId) {
+      return res.sendStatus(404);
+    }
+
+    try {
+      const tasks = await taskRepository.find({
+        where: { user: { id: userId } },
+      });
+
+      return res.status(200).json(tasks);
+    } catch (error) {
+      return res.json({ error });
+    }
+  }
 }
 
 export default new TaskController();
