@@ -12,8 +12,6 @@ class AuthController {
 
     const user = await userRepository.findOne({ where: { email } });
 
-    console.log(user);
-
     if (!user) {
       return res.sendStatus(404);
     }
