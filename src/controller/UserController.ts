@@ -19,6 +19,10 @@ class UserController {
 
     return res.json(user);
   }
+
+  async allTasks(req: Request, res: Response, next: NextFunction) {
+    return res.send("Okay").end();
+  }
 }
 
 export default new UserController();
