@@ -16,7 +16,7 @@ class AuthController {
       return res.sendStatus(404);
     }
 
-    const isValidPassword = bcrypt.compare(password, user.password);
+    const isValidPassword = await bcrypt.compare(password, user.password);
 
     if (!isValidPassword) {
       return res.sendStatus(401);
