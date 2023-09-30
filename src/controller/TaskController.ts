@@ -136,14 +136,14 @@ class TaskController {
 
   async updateTaskStatus(req: Request, res: Response, next: NextFunction) {
     const taskRepository = AppDataSource.getRepository(Task);
-    const id = req.params.id;
+    const { id, completed } = req.body;
 
     try {
       if (!id) {
         throw new Error();
       }
 
-      await taskRepository.update(id, { completed: true });
+      await taskRepository.update(id, { completed });
 
       const updatedTask = await taskRepository.findOne({ where: { id } });
 
