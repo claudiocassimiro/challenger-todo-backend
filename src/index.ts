@@ -3,10 +3,12 @@ import * as bodyParser from "body-parser";
 import { AppDataSource } from "./data-source";
 import routes from "./routes";
 import "dotenv/config";
+const cors = require("cors");
 
 AppDataSource.initialize()
   .then(async () => {
     const app = express();
+    app.use(cors());
     app.use(bodyParser.json());
     app.use(routes);
 
