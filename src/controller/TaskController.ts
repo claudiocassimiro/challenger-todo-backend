@@ -3,7 +3,6 @@ import { NextFunction, Request, Response } from "express";
 import { Task } from "../entity/Task";
 import { User } from "../entity/User";
 import { TaskSchema } from "../validations/TaskValidation/createTaskValidationSchema";
-import { Repository } from "typeorm";
 
 class TaskController {
   async save(req: Request, res: Response, next: NextFunction) {
@@ -40,6 +39,7 @@ class TaskController {
         description: description ? description : "",
         completion_data: new Date(completion_data),
         priority,
+        completed: false,
       });
 
       task.user = user;
@@ -124,13 +124,30 @@ class TaskController {
         columnsToBeUpdated["priority"] = priority;
       }
 
-      console.log("columnsToBeUpdated: ", columnsToBeUpdated);
-
       await taskRepository.update(id, columnsToBeUpdated);
 
       const updatedTask = await taskRepository.findOne({ where: { id } });
 
       return res.status(200).json({ updatedTask });
+    } catch (error) {
+      return res.status(400).json({ error: error.message });
+    }
+  }
+
+  async updateTaskStatus(req: Request, res: Response, next: NextFunction) {
+    const taskRepository = AppDataSource.getRepository(Task);
+    const id = req.params.id;
+
+    try {
+      if (!id) {
+        throw new Error();
+      }
+
+      await taskRepository.update(id, { completed: true });
+
+      const updatedTask = await taskRepository.findOne({ where: { id } });
+
+      return res.status(200).json(updatedTask);
     } catch (error) {
       return res.status(400).json({ error: error.message });
     }
