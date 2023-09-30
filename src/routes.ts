@@ -14,6 +14,10 @@ router.post("/tasks", authMiddleware, TaskController.save);
 router.get("/tasks", authMiddleware, TaskController.getAll);
 router.delete("/tasks/:id", authMiddleware, TaskController.delete);
 router.put("/tasks", authMiddleware, TaskController.update);
-router.get("/tasks/:id", authMiddleware, TaskController.updateTaskStatus);
+router.post(
+  "/tasks/update/status",
+  authMiddleware,
+  TaskController.updateTaskStatus
+);
 
 export default router;
