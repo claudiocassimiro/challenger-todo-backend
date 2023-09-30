@@ -40,6 +40,9 @@ export class Task {
   })
   priority: Priority;
 
+  @Column()
+  completed: boolean;
+
   @ManyToOne(() => User, (user) => user.tasks)
   user: User;
 }
