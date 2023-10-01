@@ -16,4 +16,7 @@ export const AppDataSource = new DataSource({
   entities: [User, Task],
   migrations: ["./src/migration/*.ts"],
   subscribers: [],
+  extra: {
+    ssl: true,
+  },
 });
