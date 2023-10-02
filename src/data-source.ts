@@ -17,6 +17,6 @@ export const AppDataSource = new DataSource({
   migrations: ["./src/migration/*.ts"],
   subscribers: [],
   extra: {
-    ssl: true,
+    ssl: process.env.DB_NAME === "production",
   },
 });
